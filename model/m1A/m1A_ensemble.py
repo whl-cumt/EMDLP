@@ -178,7 +178,7 @@ model1 = load_model("m1A-embedding-model.h5")
 label_predict_em = model1.predict(f_test_em)
 model2 = load_model("m1A-onehot-model.h5")
 label_predict_onehot = model2.predict(f_test_onehot)
-model4 = load_model("m1A-GloVe-model.h5")
+model4 = load_model("m1A-RGloVe-model.h5")
 label_predict_Glove = model4.predict(f_test_Glove)
 
 X = []
