@@ -90,7 +90,7 @@ def embedding(m6a_list_test,num_in):
         TempArray = [seq[j:j + splitcharBy] for j in range(0, len(seq) - (len(seq) % splitcharBy), overlap_interval)]
         f_test.append(TempArray)
 
-    vocab = load_vocab('genomelgs.txt')
+    vocab = load_vocab('genome.txt')
 
     b = []
     for i in range(len(f_test)):
