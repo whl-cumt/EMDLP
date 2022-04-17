@@ -235,33 +235,8 @@ Y = []
 Z1 = []
 Z2 = []
 Z3 = []
-max=0
-for i in arange(0,1.001,0.01):
-    for j in arange(0,1.001-i, 0.01):
-        label_pre=[]
-        label=label_predict_em*i+label_predict_onehot*j+label_predict_Glove*(1.0-i-j)
-        # print(label)
-        X.append(round(i,2))
-        Y.append(round(j,2))
-        for k in range(0,num_in):
-            if(label[k][0]<0.5):
-                label_pre.append(0)
-            else: label_pre.append(1)
-        label_pre= np.array(label_pre)
-        # print(label_pre)
-        label_pre=label_pre.reshape(num_in,1)
-        print(i,j,1-i-j)
-        print("MCC: %f " % matthews_corrcoef(l_test, label_pre),"AUROC: %f " %roc_auc_score(l_test, label),"ACC:  %f "  %accuracy_score(l_test,label_pre))
-        if (max<roc_auc_score(l_test, label)):
-            max=roc_auc_score(l_test, label)
-            flag=[i,j,1-i-j]
-        Z1.append(matthews_corrcoef(l_test, label_pre))
-        Z2.append(roc_auc_score(l_test, label))
-        Z3.append(accuracy_score(l_test,label_pre))
-print(flag)
 
-print(flag)
-label_pre = label_predict_em*flag[0]+label_predict_onehot*flag[1]+label_predict_Glove*flag[2]  #
+label_pre = (label_predict_em+label_predict_onehot+label_predict_Glove)/3
 label_predict = [0 if item<=0.5 else 1 for item in label_pre]   
 
 print("AUROC: %f " %roc_auc_score(l_test, label_pre))
