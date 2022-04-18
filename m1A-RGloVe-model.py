@@ -195,19 +195,19 @@ def ANN(optimizer='adam', neurons=64,kernel_size=5, batch_size=64, epochs=60, ac
     ######### model1
     cnn1 = Conv1D(64, 3, padding='same', strides=1, activation='relu')(inp1)
     cnn3 = MaxPooling1D(pool_size=2)(cnn1)
-    drop1 = Dropout(0.5)(cnn3)
+    drop1 = Dropout(0.2)(cnn3)
 
     cnn11 = Conv1D(64, 3, padding='same', strides=1, dilation_rate=2,activation='relu')(inp1)
     cnn13 = MaxPooling1D(pool_size=2)(cnn11)
-    drop11 = Dropout(0.5)(cnn13)
+    drop11 = Dropout(0.2)(cnn13)
 
     cnn21 = Conv1D(64, 3, padding='same', strides=1, dilation_rate=3,activation='relu')(inp1)
     cnn23 = MaxPooling1D(pool_size=2)(cnn21)
-    drop21 = Dropout(0.5)(cnn23)
+    drop21 = Dropout(0.2)(cnn23)
     cnn = concatenate([drop1,  drop11,drop21], axis=-1)
 
 
-    Bi1 = Bidirectional(LSTM(64,dropout=0.2, recurrent_dropout=0.2,return_sequences = True))(cnn)#0.1
+    Bi1 = Bidirectional(LSTM(64,dropout=0.2, recurrent_dropout=0.2,return_sequences = True))(cnn)#
 
     flat = Flatten()(Bi1)
     x1 = Dense(256, activation='relu')(flat)
@@ -233,7 +233,7 @@ model.compile(loss='binary_crossentropy',
 #
 earlystopping=EarlyStopping(monitor='val_loss',patience=3,verbose=0, mode='min')
 callbacks = [earlystopping]
-model.fit_generator(generate_arrays_from_feature(feature,label, batch_size),  # fit_generator 节省内存
+model.fit_generator(generate_arrays_from_feature(feature,label, batch_size),  # fit_generator 
                     epochs=epochs,
                     steps_per_epoch=len(feature) // batch_size,
                     verbose=2,
